@@ -1,4 +1,5 @@
 {
+  "parser": "@babel/eslint-parser",
   "env": {
     "browser": true,
     "es2021": true
@@ -10,5 +11,15 @@
     "sourceType": "module"
   },
   "plugins": ["react"],
-  "rules": {}
+  "rules": {
+    "linebreak-style": [0, "error", "window"],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/prop-types": "off",
+    "prefer-default-export": "off",
+    "object-shorthand": "off",
+    "object-curly-newline": "off",
+    "semi": "off",
+    "no-param-reassign": "off",
+    "eqeqeq": "off"
+  }
 }

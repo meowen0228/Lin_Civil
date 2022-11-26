@@ -4,7 +4,7 @@ import * as CustomsTools from '../middleware/CustomsTools';
 
 export const getEarthWorkList = async (req: Request, res: Response) => {
   try {
-    const result = await EarthworkServices.getEarthWorkList();
+    const result = await EarthworkServices.getEarthWorkList(req.body);
     const status = CustomsTools.CodeStatus(1, 'Success', result)
     res.json(status);
   } catch (err) {
@@ -15,7 +15,7 @@ export const getEarthWorkList = async (req: Request, res: Response) => {
 };
 
 export const addEarthWorkList = async (req: Request, res: Response) => {
-  try {
+  try {    
     const result = await EarthworkServices.addEarthWorkList(req.body);
     const status = CustomsTools.CodeStatus(1, 'Success', result)
     res.json(status);

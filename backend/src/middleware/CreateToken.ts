@@ -7,13 +7,20 @@ const CreateToken = async (data: ILogin) => {
     const token = sign(data, 'secret');
 
     // redis port = 6379
-    const client = createClient();
+    const client = createClient(
+      {
+        socket: {
+          port: 6379,
+          host: process.env.DB_HOST
+        }
+      }
+    );
     client.on('error', (err) => console.log('Redis Client Error', err));
     await client.connect();
     await client.set(data.User_Name, token);
 
     // set key timeout
-    // await client.expire(data.userName, 600);
+    // await client.expire(data.User_Name, 600);
 
     return token;
   } catch (err) {

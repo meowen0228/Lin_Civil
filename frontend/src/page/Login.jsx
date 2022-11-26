@@ -1,77 +1,66 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
+import { Button, Input, message, Form } from 'antd';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import * as API from '../service/API';
+import './login.scss';
 
-export default function SignIn() {
+function Login() {
   const navigate = useNavigate();
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    navigate('/home');
-    // const data = new FormData(event.currentTarget);
-    // console.log({
-    //   email: data.get('email'),
-    //   password: data.get('password'),
-    // });
+  const error = (msg) => {
+    message.error(msg);
   };
-
+  const onFinish = async (values) => {
+    const result = await API.Login(values);
+    if (result.code !== 1) {
+      error(result.msg);
+    } else {
+      sessionStorage.setItem('User_Name', values.User_Name);
+      sessionStorage.setItem('token', result.data.token);
+      navigate('/home');
+    }
+  };
+  const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo);
+  };
+  // useEffect(() => {
+  //   if (sessionStorage.getItem('userName') && sessionStorage.getItem('token')) {
+  //     navigate('/home');
+  //   }
+  // }, []);
   return (
-    <Container component="main" maxWidth="xs" style={{ margin: '0 auto' }}>
-      <CssBaseline />
-      <Box
-        sx={{
-          marginTop: 8,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
+    <div className="login">
+      <Form
+        name="normal_login"
+        className="login-form"
+        initialValues={{ remember: true }}
+        onFinish={onFinish}
       >
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography>
-        {/* <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}> */}
-        <Box component="form" noValidate sx={{ mt: 1 }}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
+        <Form.Item
+          name="User_Name"
+          rules={[{ required: true, message: 'Please input your Username!' }]}
+        >
+          <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="User Name" />
+        </Form.Item>
+        <Form.Item
+          name="Password"
+          rules={[{ required: true, message: 'Please input your Password!' }]}
+        >
+          <Input
+            prefix={<LockOutlined className="site-form-item-icon" />}
             type="password"
-            id="password"
-            autoComplete="current-password"
+            placeholder="Password"
           />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-            onClick={handleSubmit}
-          >
-            Sign In
+        </Form.Item>
+
+        <Form.Item>
+          <Button type="primary" htmlType="submit" className="login-form-button" style={{ width: '100%' }}>
+            Log in
           </Button>
-        </Box>
-      </Box>
-    </Container>
+        </Form.Item>
+      </Form>
+    </div>
   );
 }
+
+export default Login;

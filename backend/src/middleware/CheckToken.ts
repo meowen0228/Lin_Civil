@@ -5,24 +5,31 @@ import { IToken } from '../type';
 
 const CheckToken = async (req: Request, res: Response, next: NextFunction) => {
   const data: IToken = {
-    userName: req.body.userName ? req.body.userName : req.query.userName,
-    token: req.body.token ? req.body.token : req.query.token
-  }
-  if (!data.userName || !data.token) {
-    const result = CustomsTools.CodeStatus(400, 'no token')
+    User_Name: req.body.User_Name ? req.body.User_Name : req.query.User_Name,
+    token: req.body.token ? req.body.token : req.query.token,
+  };
+  if (!data.User_Name || !data.token) {
+    const result = CustomsTools.CodeStatus(400, 'no token');
     return res.json(result);
   }
-  
+
   // redis
-  const client = createClient();
+  const client = createClient({
+    socket: {
+      port: 6379,
+      host: process.env.DB_HOST,
+    },
+  });
   client.on('error', (err) => console.log('Redis Client Error', err));
   await client.connect();
-  const redisToken = await client.get(data.userName);
+  const redisToken = await client.get(data.User_Name);
 
   if (redisToken !== null && redisToken === data.token) {
+    delete req.body['User_Name'];
+    delete req.body['token'];
     next();
   } else {
-    const result = CustomsTools.CodeStatus(400, 'token timeout')
+    const result = CustomsTools.CodeStatus(400, 'token timeout');
     res.json(result);
   }
 };

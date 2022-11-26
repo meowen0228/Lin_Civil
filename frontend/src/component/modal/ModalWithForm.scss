@@ -1,0 +1,12 @@
+.ModalWithForm {
+  min-width: 800px;
+}
+
+@media screen and (max-width: 800px) {
+  .ModalWithForm {
+    min-width: 400px;
+    .ant-tabs-content-holder .ant-form .ant-row-space-around{   
+      flex-direction: column;
+    }
+  }
+}

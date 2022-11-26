@@ -9,4 +9,11 @@ export const AccountRoutes: IRouteItem[] = [
       AccountController.login,
     ],
   },
+  {
+    path: '/api/v1/addUser',
+    method: 'post',
+    middlewares: [
+      AccountController.addUser,
+    ],
+  },
 ];

@@ -12,6 +12,6 @@ export interface ILogin {
 }
 
 export interface IToken {
-  userName: string;
+  User_Name: string;
   token: string;
 }

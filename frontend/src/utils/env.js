@@ -4,14 +4,12 @@ import pkJson from '../../package.json';
 
 let url = '';
 
-// url = pkJson.config.url;
-
-if (window.location.host !== 'localhost:8888') {
-  url = `${window.location.protocol}//${process.env.API_V1}`;
-} else {
+if (window.location.protocol == 'http:') {
   url = pkJson.config.url;
+} else {
+  // url = `${window.location.protocol}//${import.meta.env.VITE_API_V1}`;
+  url = `${window.location.protocol}//lin-civil.tk`;
 }
-console.log(url);
 // eslint-disable-next-line import/prefer-default-export
 export const defaultConfig = {
   url,

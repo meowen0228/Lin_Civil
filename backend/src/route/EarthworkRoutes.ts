@@ -4,7 +4,7 @@ import * as EarthworkController from '../controller/EarthworkController';
 export const EarthworkRoutes: IRouteItem[] = [
   {
     path: '/api/v1/getEarthWorkList',
-    method: 'get',
+    method: 'post',
     middlewares: [
       EarthworkController.getEarthWorkList,
     ],

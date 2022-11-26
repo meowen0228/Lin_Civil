@@ -5,7 +5,7 @@ export class SteelAndForm {
   @PrimaryGeneratedColumn("increment")
   public "ID": number;
 
-  @Column("timestamp")
+  @Column("date")
   public "Work_Date": Date;
 
   @Column("varchar", { length: 20 })
