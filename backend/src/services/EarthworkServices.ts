@@ -18,7 +18,7 @@ export const getEarthWorkList = async (data) => {
         list.push(detailResult[j]);
       }
     }
-    result[i]['dataDetail'] = list;
+    result[i]['detail'] = list;
   }
   if (Area && Area != 'All') {
     const resultFilter = result.filter((e) => (

@@ -15,12 +15,19 @@ import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
 import AreaList from '../../deadData/AreaList'
 
 function EarthForm(props) {
-  const checkAreaList = AreaList.map((e) => (e.key))
+  const checkAreaList = AreaList.map((e) => e.key)
   const allIndex = checkAreaList.indexOf('All')
   if (allIndex !== -1) {
-    AreaList.splice(allIndex, 1);
+    AreaList.splice(allIndex, 1)
   }
-  const { workType, api, setIsFromOpen, reloadData, setReloadData } = props
+  const {
+    workType,
+    api,
+    setIsFromOpen,
+    reloadData,
+    setReloadData,
+    initialValues,
+  } = props
   const { TextArea } = Input
   const [form] = Form.useForm()
 
@@ -29,12 +36,12 @@ function EarthForm(props) {
     if (res.code) {
       setIsFromOpen(false)
       setReloadData(!reloadData)
-      form.resetFields();
+      form.resetFields()
     }
   }
 
   return (
-    <Form form={form} onFinish={onFinish}>
+    <Form form={form} onFinish={onFinish} initialValues={initialValues}>
       <Row justify="space-around">
         <Col xs={24} md={10}>
           <Form.Item
@@ -42,18 +49,14 @@ function EarthForm(props) {
             name="Type"
             rules={[{ required: true, message: '請選擇類型!' }]}
           >
-            <Select
-              style={{ width: 200 }}
-              placeholder="選擇類型"
-              options={workType}
-            />
+            <Select placeholder="選擇類型" options={workType} />
           </Form.Item>
           <Form.Item
             label="工作日期"
             name="Work_Date"
             rules={[{ required: true, message: '請選擇日期!' }]}
           >
-            <DatePicker style={{ width: 200 }} placeholder="選擇日期" />
+            <DatePicker placeholder="選擇日期" />
           </Form.Item>
           <Form.Item
             label="區域"
@@ -61,19 +64,17 @@ function EarthForm(props) {
             rules={[{ required: true, message: '請選擇區域!' }]}
           >
             <Select
-              style={{ width: 200 }}
               placeholder="選擇區域"
               mode="multiple"
               allowClear
+              // eslint-disable-next-line consistent-return
               filterSort={(a, b) => {
                 if (
                   a.label === AreaList[0].label ||
                   b.label === AreaList[0].label
                 )
+                  // eslint-disable-next-line
                   return 0
-                return (a?.label ?? '')
-                  .toLowerCase()
-                  .localeCompare((b?.label ?? '').toLowerCase())
               }}
               options={AreaList}
             />
@@ -83,7 +84,10 @@ function EarthForm(props) {
             name="Content"
             rules={[{ required: true, message: '請填寫工作內容!' }]}
           >
-            <TextArea rows={4} showCount maxLength={200} style={{ minWidth: 200 }} />
+            <TextArea rows={4} showCount maxLength={100} />
+          </Form.Item>
+          <Form.Item label="備註" name="Note">
+            <TextArea rows={1} showCount maxLength={100} />
           </Form.Item>
         </Col>
         <Col xs={24} sm={24} md={10}>
@@ -108,6 +112,7 @@ function EarthForm(props) {
                     key={f.key}
                     style={{
                       display: 'flex',
+                      justifyContent: 'center',
                       marginBottom: 8,
                     }}
                     align="baseline"
@@ -123,7 +128,11 @@ function EarthForm(props) {
                     >
                       <Select
                         style={{ width: 80 }}
-                        options={[{ value: '機具' }, { value: '人員' }, { value: '材料' }]}
+                        options={[
+                          { value: '機具' },
+                          { value: '人員' },
+                          { value: '材料' },
+                        ]}
                         placeholder="機具"
                       />
                     </Form.Item>
@@ -136,7 +145,7 @@ function EarthForm(props) {
                         },
                       ]}
                     >
-                      <Input placeholder="名稱" />
+                      <Input placeholder="名稱" maxLength={10} />
                     </Form.Item>
                     <Form.Item
                       name={[f.name, 'Qty']}

@@ -1,14 +1,11 @@
 import React from 'react'
-import {
-  Modal,
-  Tabs,
-} from 'antd'
+import { Modal, Tabs } from 'antd'
 import * as API from '../../service/API'
 import { EarthForm } from '../form'
 import './ModalWithForm.scss'
 
 function ModalWithForm(props) {
-  const { reloadData, setReloadData, isFormOpen, setIsFromOpen } = props
+  const { setReloadData, isFormOpen, setIsFromOpen } = props
 
   return (
     <Modal
@@ -19,6 +16,7 @@ function ModalWithForm(props) {
       }}
       footer={null}
       className="ModalWithForm"
+      destroyOnClose
     >
       <Tabs
         defaultActiveKey="1"
@@ -38,8 +36,17 @@ function ModalWithForm(props) {
                 ]}
                 api={API.addEarthWorkList}
                 setIsFromOpen={setIsFromOpen}
-                reloadData={reloadData}
                 setReloadData={setReloadData}
+                initialValues={{
+                  Type: '開挖',
+                  detail: [
+                    {
+                      Type: '機具',
+                      Name: '挖土機',
+                      Qty: 1,
+                    },
+                  ],
+                }}
               />
             ),
           },
@@ -59,6 +66,13 @@ function ModalWithForm(props) {
                 api={API.addHorizontalBracingList}
                 setIsFromOpen={setIsFromOpen}
                 setReloadData={setReloadData}
+                initialValues={{
+                  detail: [
+                    {
+                      Type: '機具',
+                    },
+                  ],
+                }}
               />
             ),
           },
@@ -74,10 +88,30 @@ function ModalWithForm(props) {
                   {
                     value: '模板',
                   },
+                  {
+                    value: '混凝土',
+                  },
+                  {
+                    value: '雜項',
+                  },
                 ]}
                 api={API.addSteelAndFormList}
                 setIsFromOpen={setIsFromOpen}
                 setReloadData={setReloadData}
+                initialValues={{
+                  detail: [
+                    {
+                      Type: '人員',
+                      Name: '泰工',
+                      Qty: 1,
+                    },
+                    {
+                      Type: '人員',
+                      Name: '台工',
+                      Qty: 1,
+                    },
+                  ],
+                }}
               />
             ),
           },

@@ -14,6 +14,8 @@ const showLoading = () => new Promise((resolve, reject) => {
     dom.setAttribute('class', 'myLoading')
     document.body.appendChild(dom)
     dom.style.opacity = 1
+    dom.style.width = '100%'
+    dom.style.height = '100%'
     ReactDOM.createRoot(document.getElementById('myLoading')).render(
       <Spin tip="loading..." size="large" />,
     )
@@ -21,7 +23,7 @@ const showLoading = () => new Promise((resolve, reject) => {
   requestCount += 1
   setTimeout(() => {
     resolve()
-  }, 500);
+  }, 300);
 })
 
 const hideLoading = () => {
@@ -58,13 +60,13 @@ export const Axios = async (method, url, param, config) => {
     .then(async (res) => {
       result = res.data
       if (res.data.code === 1) {
-        message.success(res.data.msg)
+        message.success(res.data.msg, 1)
       } else if (res.data.code === 400) {
         await message.warning('請重新登入')
         // eslint-disable-next-line no-restricted-globals
         location.replace('/')
       } else {
-        message.warning(res.data.msg)
+        message.error(res.data.msg)
       }
     })
     .catch((error) => {

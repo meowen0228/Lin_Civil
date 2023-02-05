@@ -1,12 +1,18 @@
 .ModalWithForm {
-  min-width: 800px;
+  min-width: 768px;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width:768px) {
   .ModalWithForm {
-    min-width: 400px;
-    .ant-tabs-content-holder .ant-form .ant-row-space-around{   
+    min-width: 300px;
+
+    .ant-tabs-content-holder .ant-form .ant-row-space-around {
       flex-direction: column;
+    }
+    
+    label,
+    input {
+      min-width: 80px;
     }
   }
 }

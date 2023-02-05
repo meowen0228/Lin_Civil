@@ -20,4 +20,7 @@ export class Earthwork {
 
   @Column("text")
   public "Content": string;
+
+  @Column("text", { nullable: true })
+  public "Note": string;
 }

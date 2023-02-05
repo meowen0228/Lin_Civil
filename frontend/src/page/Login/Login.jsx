@@ -12,12 +12,12 @@ function Login() {
     if (result.code) {
       sessionStorage.setItem('User_Name', values.User_Name);
       sessionStorage.setItem('token', result.data.token);
-      navigate('/home');
+      navigate('/home/cable_hole');
     }
   };
   useEffect(() => {
     if (sessionStorage.getItem('userName') && sessionStorage.getItem('token')) {
-      navigate('/home');
+      navigate('/home/cable_hole');
     }
   }, []);
   return (

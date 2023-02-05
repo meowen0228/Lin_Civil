@@ -22,3 +22,15 @@
     top: 10px
   }
 }
+
+.ant-table-content{
+  overflow: scroll;
+}
+
+@media screen and (max-width: 600px) {
+  .ant-layout-has-sider .ant-layout-sider{
+    height: 100%;
+    position: fixed;
+    z-index: 1000;
+  }
+}

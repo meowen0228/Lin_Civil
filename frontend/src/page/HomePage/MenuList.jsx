@@ -4,11 +4,13 @@ const MenuList = [
   {
     icon: FolderOutlined,
     label: '電纜涵洞',
+    key: 1,
     path: '/home/cable_hole',
   },
   {
     icon: FolderOutlined,
     label: 'test',
+    key: 2,
     path: '/home/test',
   },
 ];

@@ -3,6 +3,7 @@ import {
   InfoCircleOutlined,
   DeleteOutlined,
   PlusOutlined,
+  CheckOutlined,
 } from '@ant-design/icons'
 import {
   Table,
@@ -17,6 +18,7 @@ import {
 import * as API from '../../service/API'
 import AreaList from '../../deadData/AreaList'
 import ModalWithForm from '../../component/modal/ModalWithForm'
+import './CableHolePage.scss'
 
 function CableHolePage() {
   const [data, setData] = useState([])
@@ -36,10 +38,10 @@ function CableHolePage() {
     if (tableTabIndex == 2) {
       res = await API.getHorizontalBracingList({ Area: Area })
     }
-    if (tableTabIndex === 1) {
+    if (tableTabIndex == 3) {
       res = await API.getSteelAndFormList({ Area: Area })
     }
-    if (res.code === 1) {
+    if (res.code == 1) {
       setData(res.data)
       const distincType = new Set(res.data.map((e) => e.Type))
       const newTypeFilter = [...distincType].map((e) => ({ text: e, value: e }))
@@ -61,7 +63,6 @@ function CableHolePage() {
     setTableTabIndex(v)
   }
   const delData = async (id) => {
-    console.log(id);
     let res
     if (tableTabIndex == 1) {
       res = await API.delEarthWorkList({ ID: id })
@@ -69,7 +70,7 @@ function CableHolePage() {
     if (tableTabIndex == 2) {
       res = await API.delHorizontalBracingList({ ID: id })
     }
-    if (tableTabIndex === 1) {
+    if (tableTabIndex == 3) {
       res = await API.delSteelAndFormList({ ID: id })
     }
     if (res.code === 1) {
@@ -82,15 +83,16 @@ function CableHolePage() {
       dataIndex: 'Work_Date',
       key: 'ID',
       align: 'center',
+      defaultSortOrder: 'descend',
       sorter: (a, b) => new Date(a.Work_Date) - new Date(b.Work_Date),
+      width: 100,
     },
     {
-      title: '類型',
-      dataIndex: 'Type',
+      title: '內容',
+      dataIndex: 'Content',
       key: 'ID',
       align: 'center',
-      filters: colTypeFilter,
-      onFilter: (value, record) => record.Type.indexOf(value) === 0,
+      width: 300,
     },
     {
       title: '區域',
@@ -100,18 +102,20 @@ function CableHolePage() {
       render: (_, { Area }) => (
         <>
           {Area.map((tag) => (
-            <Tag key={tag}>
-              {tag.toUpperCase()}
-            </Tag>
+            <Tag key={tag}>{tag.toUpperCase()}</Tag>
           ))}
         </>
       ),
+      width: 60,
     },
     {
-      title: '內容',
-      dataIndex: 'Content',
+      title: '類型',
+      dataIndex: 'Type',
       key: 'ID',
       align: 'center',
+      filters: colTypeFilter,
+      onFilter: (value, record) => record.Type.indexOf(value) === 0,
+      width: 60,
     },
     {
       title: '功能',
@@ -136,6 +140,7 @@ function CableHolePage() {
           </Popconfirm>
         </Space>
       ),
+      width: 120,
     },
   ]
   const columnsDetail = [
@@ -164,15 +169,16 @@ function CableHolePage() {
       dataSource={data}
       columns={columns}
       rowKey={(record) => record.ID}
+      style={{ whiteSpace: 'pre' }}
     />
   )
   return (
-    <>
-      <div style={{ display: 'flex', justifyContent: 'space-between', gap: 20 }}>
+    <div className="CableHolePage">
+      <div
+        style={{ display: 'flex', justifyContent: 'space-between', gap: 20 }}
+      >
         <div>
-          <span>
-            區域：
-          </span>
+          <span>區域：</span>
           <Select
             style={{ width: 100 }}
             placeholder="選擇類型"
@@ -186,27 +192,29 @@ function CableHolePage() {
           <PlusOutlined />
         </Button>
       </div>
-      <Tabs
-        defaultActiveKey={tableTabIndex}
-        onChange={changeTableTabIndex}
-        items={[
-          {
-            label: '大地工程',
-            key: '1',
-            children: (myTable),
-          },
-          {
-            label: '擋土支撐',
-            key: '2',
-            children: (myTable),
-          },
-          {
-            label: '結構工程',
-            key: '3',
-            children: (myTable),
-          },
-        ]}
-      />
+      <div style={{ width: '100%' }}>
+        <Tabs
+          defaultActiveKey={tableTabIndex}
+          onChange={changeTableTabIndex}
+          items={[
+            {
+              label: '大地工程',
+              key: '1',
+              children: myTable,
+            },
+            {
+              label: '擋土支撐',
+              key: '2',
+              children: myTable,
+            },
+            {
+              label: '結構工程',
+              key: '3',
+              children: myTable,
+            },
+          ]}
+        />
+      </div>
       <Modal
         title="詳細內容"
         open={isModalOpen}
@@ -216,17 +224,18 @@ function CableHolePage() {
         onCancel={() => {
           setIsModalOpen(false)
         }}
+        footer={[
+          <Button key="back" type="primary" onClick={() => { setIsModalOpen(false) }}>
+            OK
+            <CheckOutlined />
+          </Button>,
+        ]}
+        className="CableHolePageDetailModal"
+        destroyOnClose
       >
         {data.length > 0 ? (
-          <>
-            <div
-              style={{
-                display: 'flex',
-                gap: 20,
-                flexDirection: 'row',
-                justifyContent: 'flex-start',
-              }}
-            >
+          <div>
+            <div>
               <p>
                 日期：
                 {data[detailIndex].Work_Date}
@@ -239,23 +248,28 @@ function CableHolePage() {
                 區域：
                 {data[detailIndex].Area}
               </p>
+              <p>
+                內容：
+              </p>
+              <p style={{ whiteSpace: 'pre' }}>
+                {data[detailIndex].Content}
+              </p>
             </div>
             <Table
-              dataSource={data[detailIndex].dataDetail}
+              dataSource={data[detailIndex].detail}
               columns={columnsDetail}
               rowKey={(record) => record.ID}
               pagination={false}
             />
-          </>
+          </div>
         ) : null}
       </Modal>
       <ModalWithForm
-        reloadData={reloadData}
         setReloadData={setReloadData}
         isFormOpen={isFormOpen}
         setIsFromOpen={setIsFromOpen}
       />
-    </>
+    </div>
   )
 }
 

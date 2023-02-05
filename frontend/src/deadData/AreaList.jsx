@@ -31,4 +31,28 @@ AreaList.push({
   label: 'HIJ',
   value: 'HIJ',
 });
+AreaList.push({
+  key: '#1連接站',
+  text: '#1連接站',
+  label: '#1連接站',
+  value: '#1連接站',
+});
+AreaList.push({
+  key: '#2連接站',
+  text: '#2連接站',
+  label: '#2連接站',
+  value: '#2連接站',
+});
+AreaList.push({
+  key: '#3連接站',
+  text: '#3連接站',
+  label: '#3連接站',
+  value: '#3連接站',
+});
+AreaList.push({
+  key: '#4連接站',
+  text: '#4連接站',
+  label: '#4連接站',
+  value: '#4連接站',
+});
 export default AreaList;
