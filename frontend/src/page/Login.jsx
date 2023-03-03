@@ -1,33 +1,20 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, Input, message, Form } from 'antd';
+import { Button, Input, Form } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import * as API from '../service/API';
 import './login.scss';
 
 function Login() {
   const navigate = useNavigate();
-  const error = (msg) => {
-    message.error(msg);
-  };
   const onFinish = async (values) => {
     const result = await API.Login(values);
-    if (result.code !== 1) {
-      error(result.msg);
-    } else {
+    if (result.code == 1) {
       sessionStorage.setItem('User_Name', values.User_Name);
       sessionStorage.setItem('token', result.data.token);
       navigate('/home');
     }
   };
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
-  // useEffect(() => {
-  //   if (sessionStorage.getItem('userName') && sessionStorage.getItem('token')) {
-  //     navigate('/home');
-  //   }
-  // }, []);
   return (
     <div className="login">
       <Form

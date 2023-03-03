@@ -7,7 +7,7 @@ import { defaultConfig } from '../utils/env'
 
 axios.defaults.withCredentials = true
 let requestCount = 0
-const showLoading = () => new Promise((resolve, reject) => {
+const showLoading = () => new Promise((resolve) => {
   if (requestCount === 0) {
     const dom = document.createElement('div')
     dom.setAttribute('id', 'myLoading')
