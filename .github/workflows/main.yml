@@ -39,11 +39,10 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
           
       # Build the Docker image and push to Docker Hub
-      - name: Build Docker image          
+      - name: Build Docker image
         id: build-image
         uses: docker/build-push-action@v4
         with:
-          dockerfile: backend/Dockerfile
-          context: .
+          context: ./backend
           push: true
           tags: meowen0228/civil:latest
