@@ -117,6 +117,7 @@ dist
 
 # vscode
 .vs
+.vscode
 
 # .lock
 *.lock
@@ -125,3 +126,4 @@ backend/package-lock.json
 
 # ts build folder
 dist/
+public

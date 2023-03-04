@@ -7,12 +7,6 @@ const MenuList = [
     key: 1,
     path: '/home/cable_hole',
   },
-  {
-    icon: FolderOutlined,
-    label: 'test',
-    key: 2,
-    path: '/home/test',
-  },
 ];
 
 export default MenuList;

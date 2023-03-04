@@ -4,10 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "start": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "docker:build": "docker build . -t meowen0228/civil_frontend --network=host",
+    "docker:build": "npm run build && docker build . -t meowen0228/civil_frontend --network=host",
     "docker:push": "docker push meowen0228/civil_frontend",
     "fly": "npm run build && flyctl deploy"
   },

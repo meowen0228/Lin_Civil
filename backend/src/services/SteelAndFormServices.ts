@@ -1,4 +1,4 @@
-import { AppDataSource } from '../dataSource';
+import { AppDataSource } from '../config/dataSource';
 import { SteelAndForm, SteelAndFormDetail } from '../entity';
 
 export const getSteelAndFormList = async (data) => {

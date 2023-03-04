@@ -22,7 +22,6 @@ function App() {
     <Routes>
       <Route path="/home" element={<Home />}>
         <Route path="/home/cable_hole" element={<CableHolePage />} />
-        <Route path="/home/test" element={<CableHolePage />} />
       </Route>
       <Route path="/" element={<Login />} />
       <Route path="*" element={<Navigate to="/" replace />} />

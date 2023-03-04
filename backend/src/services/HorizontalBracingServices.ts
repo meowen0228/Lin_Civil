@@ -1,4 +1,4 @@
-import { AppDataSource } from '../dataSource';
+import { AppDataSource } from '../config/dataSource';
 import { HorizontalBracing, HorizontalBracingMaterial } from '../entity';
 
 export const getHorizontalBracingList = async (data) => {

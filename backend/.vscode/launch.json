@@ -17,8 +17,19 @@
       "smartStep": true,
       "skipFiles": ["<node_internals>/**"],
       "program": "${workspaceFolder}/src/index.ts",
-      "outFiles": ["${workspaceFolder}/dist/**/*.js"],
-      "preLaunchTask": "tsc: build - tsconfig.json"
+      "outFiles": ["${workspaceFolder}/dist/**/*.js"]
+      // "preLaunchTask": "tsc: build - tsconfig.json"
+    },
+    {
+      "name": "ts-node-dev-current-folder",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceRoot}",
+      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/ts-node-dev",
+      "runtimeArgs": ["--respawn", "--transpile-only"],
+      "program": "src/index.ts",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
     }
   ]
 }

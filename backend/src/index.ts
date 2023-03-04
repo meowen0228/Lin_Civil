@@ -1,29 +1,41 @@
+import 'reflect-metadata';
 import * as dotenv from 'dotenv';
+
+dotenv.config();
+
 import express from 'express';
 import cors from 'cors';
-import * as path from 'path';
-import 'reflect-metadata';
-import { AppDataSource } from './dataSource';
+import * as bodyParser from 'body-parser';
+import { AppDataSource } from './config/dataSource';
 import { AppRoutes } from './routes';
 import { Request, Response, NextFunction } from 'express';
 import CheckToken from './middleware/CheckToken';
 import CreateSaltPassword from './middleware/CreateSaltPassword';
+import logger from './utils/logger/logger';
 
-dotenv.config();
+const PORT = process.env.PORT || '8080';
 
-const port = process.env.PORT || '8080';
+const initServer = async () => {
+  try {
 
-// establish database connection
-AppDataSource.initialize()
-  .then(async () => {
+    logger.debug('create server ing...');
+
+    try {
+      // db config在typeorm0.3.0版之後一定要分開寫，不然cli要執行migration相關操作時會失敗
+      await AppDataSource.initialize();
+      logger.debug('connect DB success!');
+    } catch (e) {
+      logger.error('create database connection error, exit process.', e);
+      process.exit();
+    }
+
     const app = express();
-
-    // create and setup express app
-    app.use(express.static(path.join(__dirname, 'public')));
-    app.use(express.json());
+    app.use(express.static('public'));
+    app.use(bodyParser.json({ limit: '500mb' }));
 
     // cors
     const whitelist = [
+      'http://localhost:8080',
       'http://localhost:3001',
       'http://localhost:4173',
       'http://localhost:5173',
@@ -31,7 +43,7 @@ AppDataSource.initialize()
       'http://localhost:3030',
       'https://lin-civil.fly.dev',
     ];
-    const corsOptions = {
+    app.use(cors({
       origin: (origin, callback) => {
         if (!origin || whitelist.indexOf(origin) !== -1) {
           callback(null, true);
@@ -40,8 +52,7 @@ AppDataSource.initialize()
         }
       },
       credentials: true,
-    };
-    app.use(cors(corsOptions));
+    }));
 
     // SHA256
     const SHA256 = (routePath: string[], middleware) => {
@@ -76,7 +87,14 @@ AppDataSource.initialize()
       app[route.method](route.path, ...route.middlewares);
     });
 
-    // start express server
-    app.listen(port);
-  })
-  .catch((error) => console.log(error));
+    app.listen(PORT, () => {
+      logger.info(`Listening on port: ${PORT}.`);
+    });
+
+  } catch (e) {
+    logger.error('create database connection error, exit process.', e);
+    process.exit();
+  }
+}
+
+initServer();

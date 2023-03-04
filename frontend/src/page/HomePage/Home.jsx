@@ -74,8 +74,8 @@ function Home() {
       </Sider>
       <Layout>
         <Header
-          className="site-layout-sub-header-background"
           style={{
+            textAlign: 'center',
             padding: '0 20px 0 20px',
             color: 'white',
             fontSize: 'large',

@@ -1,4 +1,4 @@
-import { AppDataSource } from '../dataSource';
+import { AppDataSource } from '../config/dataSource';
 import { Earthwork, EarthworkExcavator } from '../entity';
 
 export const getEarthWorkList = async (data) => {

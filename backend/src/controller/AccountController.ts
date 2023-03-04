@@ -8,8 +8,8 @@ export const login = async (req: Request, res: Response) => {
     const status = CustomsTools.CodeStatus(1, 'Success', result)
     res.json(status);
   } catch (err) {
-    const status = CustomsTools.CodeStatus(0, 'User_Name or password')
-    res.json(status);
+    res.statusCode = 400;
+    res.json(`Bad Request:${err.message}`);
   }
 };
 
