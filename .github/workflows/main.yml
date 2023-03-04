@@ -20,7 +20,8 @@ jobs:
           cd frontend
           npm install
           npm run build
-          cp -r build/* ../backend/public/
+          cp -r dist/* ../backend/public/
+          rm -f dist
       
       # Build the backend
       - name: Build Backend
