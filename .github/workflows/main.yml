@@ -43,6 +43,7 @@ jobs:
         id: build-image
         uses: docker/build-push-action@v4
         with:
+          dockerfile: backend/Dockerfile
           context: .
           push: true
           tags: meowen0228/civil:latest
