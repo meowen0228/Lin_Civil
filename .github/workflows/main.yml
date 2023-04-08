@@ -64,15 +64,17 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-northeast-1
 
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
-
-      - name: Pull latest images
-        run: |
-          docker ps
-          docker pull meowen0228/civil:latest
-          docker stop web
-          docker rm web
-          docker run --name web -p 8080:8080 -d meowen0228/civil:latest
-          docker image prune -f
+      - name: Connect to EC2 instance using SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DB_HOST }}
+          username: ubuntu
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: 22
+          script: |
+            docker ps
+            docker pull meowen0228/civil:latest
+            docker stop web
+            docker rm web
+            docker run --name web -p 8080:8080 -d meowen0228/civil:latest
+            docker image prune -f
