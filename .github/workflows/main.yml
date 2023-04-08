@@ -38,9 +38,14 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN_ALL }}
          
       # Echo env
-      - name: Echo env
-        run: |
-           echo "DB_HOST=${{ secrets.DB_HOST }}"
+      - name: Create .env file
+        run:
+          cd backend
+          echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
+          echo "DB_PORT=${{ vars.DB_PORT }}" >> .env
+          echo "DB_USER=${{ vars.DB_USER }}" >> .env
+          echo "DB_DATABASE=${{ vars.DB_DATABASE }}" >> .env
+          echo "DB_SCHEMA=${{ vars.DB_SCHEMA }}" >> .env
          
       # Build the Docker image and push to Docker Hub
       - name: Build Docker image
@@ -50,9 +55,3 @@ jobs:
           context: ./backend
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/civil:latest
-          secrets: |
-            "DB_HOST=${{ secrets.DB_HOST }}"
-            "DB_PORT=${{ vars.DB_PORT }}"
-            "DB_USER=${{ vars.DB_USER }}"
-            "DB_DATABASE=${{ vars.DB_DATABASE }}"
-            "DB_SCHEMA=${{ vars.DB_SCHEMA }}"
