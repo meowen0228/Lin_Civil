@@ -1,9 +1,8 @@
 name: Deploy to Amazon ECS
 
 on:
-  push:
-    branches:
-      - main
+  workflow_run:
+    workflows: ["Build and Deploy Docker Image"]
 
 jobs:
   update-docker-image:
