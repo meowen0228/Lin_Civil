@@ -5,10 +5,10 @@ import { IToken } from '../type';
 
 const CheckToken = async (req: Request, res: Response, next: NextFunction) => {
   const data: IToken = {
-    User_Name: req.body.User_Name ? req.body.User_Name : req.query.User_Name,
+    user_name: req.body.user_name ? req.body.user_name : req.query.user_name,
     token: req.body.token ? req.body.token : req.query.token,
   };
-  if (!data.User_Name || !data.token) {
+  if (!data.user_name || !data.token) {
     const result = CustomsTools.CodeStatus(400, 'no token');
     return res.json(result);
   }
@@ -22,10 +22,10 @@ const CheckToken = async (req: Request, res: Response, next: NextFunction) => {
   });
   client.on('error', (err) => console.log('Redis Client Error', err));
   await client.connect();
-  const redisToken = await client.get(data.User_Name);
+  const redisToken = await client.get(data.user_name);
 
   if (redisToken !== null && redisToken === data.token) {
-    delete req.body['User_Name'];
+    delete req.body['user_name'];
     delete req.body['token'];
     next();
   } else {

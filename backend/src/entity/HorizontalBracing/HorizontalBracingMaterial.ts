@@ -7,19 +7,19 @@ import {
 @Entity()
 export class HorizontalBracingMaterial {
   @PrimaryGeneratedColumn("increment")
-  public "ID": number;
+  public id: number;
 
   @Column("int")
-  public "Bracing_id": number;
+  public bracing_id: number;
 
   @Column("varchar", { length: 20 })
-  public "Type": string;
+  public type: string;
 
   @Column("varchar", { length: 20 })
-  public "Name": string;
+  public name: string;
 
   @Column("smallint")
-  public "Qty": number;
+  public qty: number;
 
 
 }

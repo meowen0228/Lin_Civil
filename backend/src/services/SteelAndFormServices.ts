@@ -2,7 +2,7 @@ import { AppDataSource } from '../config/dataSource';
 import { SteelAndForm, SteelAndFormDetail } from '../entity';
 
 export const getSteelAndFormList = async (data) => {
-  const Area = data.Area;
+  const area = data.area;
   const result = await AppDataSource.getRepository(SteelAndForm)
     .createQueryBuilder()
     .select()
@@ -14,15 +14,15 @@ export const getSteelAndFormList = async (data) => {
   for (let i = 0; i < result.length; i++) {
     let list = [];
     for (let j = 0; j < detailResult.length; j++) {
-      if (result[i].ID == detailResult[j].SteelAndForm_id) {
+      if (result[i].id == detailResult[j].steelAndForm_id) {
         list.push(detailResult[j])
       }
     }
     result[i]["detail"] = list;
   }
-  if (Area && Area != 'All') {
+  if (area && area != 'All') {
     const resultFilter = result.filter((e) => {
-      if (e.Area.indexOf(Area) > 0) {
+      if (e.area.indexOf(area) > 0) {
         return e
       }
     });
@@ -38,10 +38,10 @@ export const addSteelAndFormList = async (data) => {
       .into(SteelAndForm)
       .values([data])
       .execute();
-    const new_id = result.identifiers[0].ID;
+    const new_id = result.identifiers[0].id;
     const detail = data.detail
     detail.forEach((element) => {
-      element["SteelAndForm_id"] = new_id;
+      element["steelAndForm_id"] = new_id;
     });
     const detailResult = await AppDataSource.createQueryBuilder()
       .insert()
@@ -55,16 +55,16 @@ export const addSteelAndFormList = async (data) => {
 };
 
 export const delSteelAndFormList = async (data) => {
-  const ID = data.ID;
+  const id = data.id;
   const result = await AppDataSource.createQueryBuilder()
     .delete()
     .from(SteelAndForm)
-    .where(`"ID" = :ID`, { ID: ID })
+    .where(`"id" = :id`, { id: id })
     .execute()
   const result2 = await AppDataSource.createQueryBuilder()
     .delete()
     .from(SteelAndFormDetail)
-    .where(`"SteelAndForm_id" = :ID`, { ID: ID })
+    .where(`"steelAndForm_id" = :id`, { id: id })
     .execute();
   return { result, result2 };
 };

@@ -2,7 +2,7 @@ import { AppDataSource } from '../config/dataSource';
 import { Earthwork, EarthworkExcavator } from '../entity';
 
 export const getEarthWorkList = async (data) => {
-  const Area = data.Area;
+  const area = data.area;
   const result = await AppDataSource.getRepository(Earthwork)
     .createQueryBuilder()
     .select()
@@ -14,15 +14,15 @@ export const getEarthWorkList = async (data) => {
   for (let i = 0; i < result.length; i++) {
     let list = [];
     for (let j = 0; j < detailResult.length; j++) {
-      if (result[i].ID == detailResult[j].Earth_id) {
+      if (result[i].id == detailResult[j].earth_id) {
         list.push(detailResult[j]);
       }
     }
     result[i]['detail'] = list;
   }
-  if (Area && Area != 'All') {
+  if (area && area != 'All') {
     const resultFilter = result.filter((e) => (
-      e.Area.includes(Area)
+      e.area.includes(area)
     ));
     return resultFilter;
   }
@@ -37,10 +37,10 @@ export const addEarthWorkList = async (data) => {
         .into(Earthwork)
         .values([data])
         .execute();
-      const new_id = result.identifiers[0].ID;
+      const new_id = result.identifiers[0].id;
       const detail = data.detail;
       detail.forEach((element) => {
-        element['Earth_id'] = new_id;
+        element['earth_id'] = new_id;
       });
       const detailResult = await AppDataSource.createQueryBuilder()
         .insert()
@@ -55,16 +55,16 @@ export const addEarthWorkList = async (data) => {
 };
 
 export const delEarthWorkList = async (data) => {
-  const ID = data.ID;
+  const id = data.id;
   const result = await AppDataSource.createQueryBuilder()
     .delete()
     .from(Earthwork)
-    .where(`earthwork."ID" = :ID`, { ID: ID })
+    .where(`earthwork."id" = :id`, { id: id })
     .execute();
   const result2 = await AppDataSource.createQueryBuilder()
     .delete()
     .from(EarthworkExcavator)
-    .where(`"Earth_id" = :ID`, { ID: ID })
+    .where(`"earth_id" = :id`, { id: id })
     .execute();
   return { result, result2 };
 };

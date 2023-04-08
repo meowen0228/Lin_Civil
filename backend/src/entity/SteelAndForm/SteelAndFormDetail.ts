@@ -7,19 +7,17 @@ import {
 @Entity()
 export class SteelAndFormDetail {
   @PrimaryGeneratedColumn("increment")
-  public "ID": number;
+  public id: number;
 
   @Column("int")
-  public "SteelAndForm_id": number;
+  public steelAndForm_id: number;
 
   @Column("varchar", { length: 20 })
-  public "Type": string;
+  public type: string;
 
   @Column("varchar", { length: 20 })
-  public "Name": string;
+  public name: string;
 
   @Column("smallint")
-  public "Qty": number;
-
-
+  public qty: number;
 }

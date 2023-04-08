@@ -30,20 +30,20 @@ function CableHolePage() {
   const [isFormOpen, setIsFromOpen] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
 
-  const fetchData = async (Area) => {
+  const fetchData = async (area) => {
     let res
     if (tableTabIndex == 1) {
-      res = await API.getEarthWorkList({ Area: Area })
+      res = await API.getEarthWorkList({ area: area })
     }
     if (tableTabIndex == 2) {
-      res = await API.getHorizontalBracingList({ Area: Area })
+      res = await API.getHorizontalBracingList({ area: area })
     }
     if (tableTabIndex == 3) {
-      res = await API.getSteelAndFormList({ Area: Area })
+      res = await API.getSteelAndFormList({ area: area })
     }
     if (res.code == 1) {
       setData(res.data)
-      const distincType = new Set(res.data.map((e) => e.Type))
+      const distincType = new Set(res.data.map((e) => e.type))
       const newTypeFilter = [...distincType].map((e) => ({ text: e, value: e }))
       setColTypeFilter(newTypeFilter)
     }
@@ -51,11 +51,11 @@ function CableHolePage() {
   useEffect(() => {
     fetchData(searchArea)
   }, [tableTabIndex, reloadData, searchArea])
-  const changeArea = (Area) => {
-    setSearchArea(Area)
+  const changeArea = (area) => {
+    setSearchArea(area)
   }
   const showModal = async (id) => {
-    const index = data.map((e) => e.ID).indexOf(id)
+    const index = data.map((e) => e.id).indexOf(id)
     setIsModalOpen(true)
     setDetailIndex(index)
   }
@@ -65,13 +65,13 @@ function CableHolePage() {
   const delData = async (id) => {
     let res
     if (tableTabIndex == 1) {
-      res = await API.delEarthWorkList({ ID: id })
+      res = await API.delEarthWorkList({ id: id })
     }
     if (tableTabIndex == 2) {
-      res = await API.delHorizontalBracingList({ ID: id })
+      res = await API.delHorizontalBracingList({ id: id })
     }
     if (tableTabIndex == 3) {
-      res = await API.delSteelAndFormList({ ID: id })
+      res = await API.delSteelAndFormList({ id: id })
     }
     if (res.code === 1) {
       fetchData()
@@ -80,28 +80,28 @@ function CableHolePage() {
   const columns = [
     {
       title: '日期',
-      dataIndex: 'Work_Date',
-      key: 'ID',
+      dataIndex: 'work_date',
+      key: 'id',
       align: 'center',
       defaultSortOrder: 'descend',
-      sorter: (a, b) => new Date(a.Work_Date) - new Date(b.Work_Date),
+      sorter: (a, b) => new Date(a.work_date) - new Date(b.work_date),
       width: 100,
     },
     {
       title: '內容',
-      dataIndex: 'Content',
-      key: 'ID',
+      dataIndex: 'content',
+      key: 'id',
       align: 'center',
       width: 300,
     },
     {
       title: '區域',
-      dataIndex: 'Area',
-      key: 'ID',
+      dataIndex: 'area',
+      key: 'id',
       align: 'center',
-      render: (_, { Area }) => (
+      render: (_, { area }) => (
         <>
-          {Area.map((tag) => (
+          {area.map((tag) => (
             <Tag key={tag}>{tag.toUpperCase()}</Tag>
           ))}
         </>
@@ -110,11 +110,11 @@ function CableHolePage() {
     },
     {
       title: '類型',
-      dataIndex: 'Type',
-      key: 'ID',
+      dataIndex: 'type',
+      key: 'id',
       align: 'center',
       filters: colTypeFilter,
-      onFilter: (value, record) => record.Type.indexOf(value) === 0,
+      onFilter: (value, record) => record.type.indexOf(value) === 0,
       width: 60,
     },
     {
@@ -126,12 +126,12 @@ function CableHolePage() {
           <Button
             type=""
             icon={<InfoCircleOutlined />}
-            onClick={() => showModal(record.ID)}
+            onClick={() => showModal(record.id)}
           />
           <Popconfirm
             title="確定要刪除嗎？"
             onConfirm={() => {
-              delData(record.ID)
+              delData(record.id)
             }}
             okText="是"
             cancelText="否"
@@ -146,20 +146,20 @@ function CableHolePage() {
   const columnsDetail = [
     {
       title: '類別',
-      dataIndex: 'Type',
-      key: 'ID',
+      dataIndex: 'type',
+      key: 'id',
       align: 'center',
     },
     {
       title: '名稱',
       dataIndex: 'Name',
-      key: 'ID',
+      key: 'id',
       align: 'center',
     },
     {
       title: '數量',
-      dataIndex: 'Qty',
-      key: 'ID',
+      dataIndex: 'qty',
+      key: 'id',
       align: 'center',
     },
   ]
@@ -168,7 +168,7 @@ function CableHolePage() {
       showSorterTooltip={false}
       dataSource={data}
       columns={columns}
-      rowKey={(record) => record.ID}
+      rowKey={(record) => record.id}
       style={{ whiteSpace: 'pre' }}
     />
   )
@@ -238,27 +238,27 @@ function CableHolePage() {
             <div>
               <p>
                 日期：
-                {data[detailIndex].Work_Date}
+                {data[detailIndex].work_date}
               </p>
               <p>
                 類型：
-                {data[detailIndex].Type}
+                {data[detailIndex].type}
               </p>
               <p>
                 區域：
-                {data[detailIndex].Area}
+                {data[detailIndex].area}
               </p>
               <p>
                 內容：
               </p>
               <p style={{ whiteSpace: 'pre' }}>
-                {data[detailIndex].Content}
+                {data[detailIndex].content}
               </p>
             </div>
             <Table
               dataSource={data[detailIndex].detail}
               columns={columnsDetail}
-              rowKey={(record) => record.ID}
+              rowKey={(record) => record.id}
               pagination={false}
             />
           </div>

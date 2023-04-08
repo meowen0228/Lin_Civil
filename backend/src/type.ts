@@ -7,11 +7,11 @@ export interface IRouteItem {
 }
 
 export interface ILogin {
-  User_Name: string;
-  Password: string;
+  user_name: string;
+  password: string;
 }
 
 export interface IToken {
-  User_Name: string;
+  user_name: string;
   token: string;
 }
