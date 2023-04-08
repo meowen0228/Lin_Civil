@@ -70,6 +70,7 @@ jobs:
 
       - name: Pull latest images
         run: |
+          docker ps
           docker pull meowen0228/civil:latest
           docker stop web
           docker rm web
