@@ -39,9 +39,9 @@ jobs:
          
       # Echo env
       - name: Create .env file
-        run:
+        run: |
           cd backend
-          echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
+          echo "DB_HOST=${{ secrets.DB_HOST }}" > .env
           echo "DB_PORT=${{ vars.DB_PORT }}" >> .env
           echo "DB_USER=${{ vars.DB_USER }}" >> .env
           echo "DB_DATABASE=${{ vars.DB_DATABASE }}" >> .env
