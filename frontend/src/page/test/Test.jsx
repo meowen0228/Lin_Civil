@@ -9,7 +9,7 @@ function Order() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const fetchOrderData = async () => {
     const param = {
-      User_Name: sessionStorage.getItem('User_Name'),
+      user_name: sessionStorage.getItem('user_name'),
       token: sessionStorage.getItem('token'),
       id: sessionStorage.getItem('id'),
     };
@@ -33,7 +33,7 @@ function Order() {
   };
   const delData = async (id) => {
     const param = {
-      User_Name: sessionStorage.getItem('User_Name'),
+      user_name: sessionStorage.getItem('user_name'),
       token: sessionStorage.getItem('token'),
       orderId: id,
     };
@@ -44,21 +44,21 @@ function Order() {
   };
   const columns = [
     {
-      title: 'Work_Date',
-      dataIndex: 'Work_Date',
-      key: 'ID',
+      title: 'work_date',
+      dataIndex: 'work_date',
+      key: 'id',
       align: 'center',
     },
     {
-      title: 'Area',
-      dataIndex: 'Area',
-      key: 'ID',
+      title: 'area',
+      dataIndex: 'area',
+      key: 'id',
       align: 'center',
     },
     {
       title: 'Dump_Truck',
       dataIndex: 'Dump_Truck',
-      key: 'ID',
+      key: 'id',
       align: 'center',
     },
     {
@@ -70,12 +70,12 @@ function Order() {
           <Button
             type=""
             icon={<InfoCircleOutlined />}
-            onClick={() => showModal(record.ID)}
+            onClick={() => showModal(record.id)}
           />
           <Popconfirm
             title="Are you sure to delete this Data?"
             onConfirm={() => {
-              delData(record.ID);
+              delData(record.id);
             }}
             okText="Yes"
             cancelText="No"
@@ -88,15 +88,15 @@ function Order() {
   ];
   const columnsDetail = [
     {
-      title: 'Type',
-      dataIndex: 'Type',
-      key: 'ID',
+      title: 'type',
+      dataIndex: 'type',
+      key: 'id',
       align: 'center',
     },
     {
-      title: 'Qty',
-      dataIndex: 'Qty',
-      key: 'ID',
+      title: 'qty',
+      dataIndex: 'qty',
+      key: 'id',
       align: 'center',
     },
   ];
@@ -126,7 +126,7 @@ function Order() {
       <Table
         dataSource={data}
         columns={columns}
-        rowKey={(record) => record.ID}
+        rowKey={(record) => record.id}
       />
       <Modal
         title="Basic Modal"
@@ -137,7 +137,7 @@ function Order() {
         <Table
           dataSource={detail}
           columns={columnsDetail}
-          rowKey={(record) => record.ID}
+          rowKey={(record) => record.id}
           pagination={false}
         />
       </Modal>

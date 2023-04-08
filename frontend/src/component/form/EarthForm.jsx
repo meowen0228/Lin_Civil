@@ -46,21 +46,21 @@ function EarthForm(props) {
         <Col xs={24} md={10}>
           <Form.Item
             label="工作類型"
-            name="Type"
+            name="type"
             rules={[{ required: true, message: '請選擇類型!' }]}
           >
             <Select placeholder="選擇類型" options={workType} />
           </Form.Item>
           <Form.Item
             label="工作日期"
-            name="Work_Date"
+            name="work_date"
             rules={[{ required: true, message: '請選擇日期!' }]}
           >
             <DatePicker placeholder="選擇日期" />
           </Form.Item>
           <Form.Item
             label="區域"
-            name="Area"
+            name="area"
             rules={[{ required: true, message: '請選擇區域!' }]}
           >
             <Select
@@ -81,7 +81,7 @@ function EarthForm(props) {
           </Form.Item>
           <Form.Item
             label="工作內容"
-            name="Content"
+            name="content"
             rules={[{ required: true, message: '請填寫工作內容!' }]}
           >
             <TextArea rows={4} showCount maxLength={100} />
@@ -118,7 +118,7 @@ function EarthForm(props) {
                     align="baseline"
                   >
                     <Form.Item
-                      name={[f.name, 'Type']}
+                      name={[f.name, 'type']}
                       rules={[
                         {
                           required: true,
@@ -148,7 +148,7 @@ function EarthForm(props) {
                       <Input placeholder="名稱" maxLength={10} />
                     </Form.Item>
                     <Form.Item
-                      name={[f.name, 'Qty']}
+                      name={[f.name, 'qty']}
                       rules={[
                         {
                           required: true,

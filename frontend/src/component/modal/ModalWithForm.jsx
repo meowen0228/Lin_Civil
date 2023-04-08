@@ -38,12 +38,12 @@ function ModalWithForm(props) {
                 setIsFromOpen={setIsFromOpen}
                 setReloadData={setReloadData}
                 initialValues={{
-                  Type: '開挖',
+                  type: '開挖',
                   detail: [
                     {
-                      Type: '機具',
+                      type: '機具',
                       Name: '挖土機',
-                      Qty: 1,
+                      qty: 1,
                     },
                   ],
                 }}
@@ -69,7 +69,7 @@ function ModalWithForm(props) {
                 initialValues={{
                   detail: [
                     {
-                      Type: '機具',
+                      type: '機具',
                     },
                   ],
                 }}
@@ -101,14 +101,14 @@ function ModalWithForm(props) {
                 initialValues={{
                   detail: [
                     {
-                      Type: '人員',
+                      type: '人員',
                       Name: '泰工',
-                      Qty: 1,
+                      qty: 1,
                     },
                     {
-                      Type: '人員',
+                      type: '人員',
                       Name: '台工',
-                      Qty: 1,
+                      qty: 1,
                     },
                   ],
                 }}
