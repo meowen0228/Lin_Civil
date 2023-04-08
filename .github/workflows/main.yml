@@ -69,7 +69,7 @@ jobs:
         with:
           host: ${{ secrets.DB_HOST }}
           username: ubuntu
-          password: ${{ secrets.SSH_PASSWORD }}
+          key: ${{ secrets.SSH_KEY }}
           port: 22
           script: |
             docker ps
