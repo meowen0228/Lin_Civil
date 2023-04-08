@@ -69,7 +69,7 @@ jobs:
         with:
           host: ${{ secrets.DB_HOST }}
           username: ubuntu
-          key: ${{ secrets.SSH_KEY }}
+          password: ${{ secrets.SSH_KEY }}
           script: |
             docker ps
             docker pull meowen0228/civil:latest
