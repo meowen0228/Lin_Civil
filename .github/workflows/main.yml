@@ -30,6 +30,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
       - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
@@ -45,7 +48,7 @@ jobs:
           echo "DB_PASS=${{ vars.DB_PASS }}" >> .env
           echo "DB_DATABASE=${{ vars.DB_DATABASE }}" >> .env
           echo "DB_SCHEMA=${{ vars.DB_SCHEMA }}" >> .env
-         
+
       - name: Build And Push Docker image
         id: build-image
         uses: docker/build-push-action@v4
@@ -53,7 +56,7 @@ jobs:
           context: ./backend
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/civil:latest
-          
+
   update-docker-image:
     runs-on: ubuntu-latest
     needs: build-image-and-push
@@ -71,7 +74,7 @@ jobs:
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
-  
+
       - name: Pull latest images
         run: |
           docker pull meowen0228/civil:latest
