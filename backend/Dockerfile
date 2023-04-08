@@ -21,6 +21,6 @@ COPY package*.json ./
 COPY ./dist ./src
 COPY ./public ./public
 RUN npm ci
-COPY .env ./
+# COPY .env ./
 EXPOSE 8080
 CMD [ "node", "src/index.js" ]
