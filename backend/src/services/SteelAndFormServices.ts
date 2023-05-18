@@ -14,7 +14,7 @@ export const getSteelAndFormList = async (data) => {
   for (let i = 0; i < result.length; i++) {
     let list = [];
     for (let j = 0; j < detailResult.length; j++) {
-      if (result[i].id == detailResult[j].SteelAndForm_id) {
+      if (result[i].id == detailResult[j].steelAndForm_id) {
         list.push(detailResult[j])
       }
     }
