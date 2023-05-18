@@ -9,6 +9,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      # Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -17,32 +18,25 @@ jobs:
           cd frontend
           npm install
           npm run build
-          cp -r dist/* ../backend/public/
-          rm -rf dist
+          mkdir ../backend/public/
+          cp -r -f build/* ../backend/public/
 
+      # Build the backend
       - name: Build Backend
         run: |
           cd backend
           npm install
           npx tsc
 
+      # Login to Docker Hub
       - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN_ALL }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Create .env file
-        run: |
-          cd backend
-          echo "DB_HOST=${{ secrets.DB_HOST }}" > .env
-          echo "DB_PORT=${{ vars.DB_PORT }}" >> .env
-          echo "DB_USER=${{ vars.DB_USER }}" >> .env
-          echo "DB_PASS=${{ vars.DB_PASS }}" >> .env
-          echo "DB_DATABASE=${{ vars.DB_DATABASE }}" >> .env
-          echo "DB_SCHEMA=${{ vars.DB_SCHEMA }}" >> .env
-
-      - name: Build And Push Docker image
+      # Build the Docker image and push to Docker Hub
+      - name: Build Docker image
         id: build-image
         uses: docker/build-push-action@v4
         with:
