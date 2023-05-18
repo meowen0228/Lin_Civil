@@ -2,7 +2,7 @@ import { AppDataSource } from '../config/dataSource';
 import { HorizontalBracing, HorizontalBracingMaterial } from '../entity';
 
 export const getHorizontalBracingList = async (data) => {
-  const area = data.area;
+  const Area = data.Area;
   const result = await AppDataSource.getRepository(HorizontalBracing)
     .createQueryBuilder()
     .select()
@@ -14,15 +14,15 @@ export const getHorizontalBracingList = async (data) => {
   for (let i = 0; i < result.length; i++) {
     let list = [];
     for (let j = 0; j < detailResult.length; j++) {
-      if (result[i].id == detailResult[j].bracing_id) {
+      if (result[i].id == detailResult[j].Bracing_id) {
         list.push(detailResult[j])
       }
     }
     result[i]["detail"] = list;
   }
-  if (area && area != 'All') {
+  if (Area && Area != 'All') {
     const resultFilter = result.filter((e) => {
-      if (e.area.indexOf(area) > 0) {
+      if (e.Area.indexOf(Area) > 0) {
         return e
       }
     });
@@ -41,7 +41,7 @@ export const addHorizontalBracingList = async (data) => {
     const new_id = result.identifiers[0].id;
     const detail = data.detail
     detail.forEach((element) => {
-      element["bracing_id"] = new_id;
+      element[bracing_id] = new_id;
     });
     const detailResult = await AppDataSource.createQueryBuilder()
       .insert()
@@ -59,12 +59,12 @@ export const delHorizontalBracingList = async (data) => {
   const result = await AppDataSource.createQueryBuilder()
     .delete()
     .from(HorizontalBracing)
-    .where(`"id" = :id`, { id: id })
+    .where(`id = :id`, { id: id })
     .execute()
   const result2 = await AppDataSource.createQueryBuilder()
     .delete()
     .from(HorizontalBracingMaterial)
-    .where(`"bracing_id" = :id`, { id: id })
+    .where(`bracing_id = :id`, { id: id })
     .execute();
   return { result, result2 };
 };

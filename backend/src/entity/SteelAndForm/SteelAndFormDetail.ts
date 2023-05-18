@@ -20,4 +20,6 @@ export class SteelAndFormDetail {
 
   @Column("smallint")
   public qty: number;
+
+
 }
