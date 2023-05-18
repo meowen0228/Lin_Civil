@@ -21,6 +21,18 @@ COPY package*.json ./
 COPY ./dist ./src
 COPY ./public ./public
 RUN npm ci
-COPY .env ./
+ARG DB_DATABASE
+ENV DB_DATABASE ${DB_DATABASE}
+ARG DB_SCHEMA
+ENV DB_SCHEMA ${DB_SCHEMA}
+ARG DB_HOST
+ENV DB_HOST ${DB_HOST}
+ARG DB_PORT
+ENV DB_PORT ${DB_PORT}
+ARG DB_USER
+ENV DB_USER ${DB_USER}
+ARG DB_PASS
+ENV DB_PASS ${DB_PASS}
+# COPY .env ./
 EXPOSE 8080
 CMD [ "node", "src/index.js" ]
