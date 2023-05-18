@@ -8,10 +8,10 @@ export const getAllDataList = async (data: ILogin) => {
     console.log(data);
     const AccountResult = await AppDataSource
       .createQueryBuilder()
-      .select(['Account.User_Name', 'Account.Password'])
+      .select(['Account.user_name', 'Account.password'])
       .from(Account, 'Account')
-      .where('Account.User_Name = :User_Name', { User_Name: data.User_Name })
-      .andWhere('Account.Password = :Password', { Password: data.Password })
+      .where('Account.user_name = :user_name', { user_name: data.user_name })
+      .andWhere('Account.password = :password', { password: data.password })
       .getOne();
 
     if (AccountResult[0] === 0) {
@@ -20,7 +20,7 @@ export const getAllDataList = async (data: ILogin) => {
     } else {
       const token = await CreateToken(data);
       const result = {
-        id: AccountResult.ID,
+        id: AccountResult.id,
         token: token,
       };
       return result;

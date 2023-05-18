@@ -7,20 +7,20 @@ import {
 @Entity()
 export class Earthwork {
   @PrimaryGeneratedColumn("increment")
-  public "ID": number;
+  public id: number;
 
   @Column("varchar", { length: 20 })
-  public "Type": string;
+  public type: string;
 
   @Column("date")
-  public "Work_Date": Date;
+  public work_date: Date;
 
   @Column("varchar", { length: 20, array: true })
-  public "Area": string[];
+  public area: string[];
 
   @Column("text")
-  public "Content": string;
+  public content: string;
 
   @Column("text", { nullable: true })
-  public "Note": string;
+  public note: string;
 }

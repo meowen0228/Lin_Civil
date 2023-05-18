@@ -14,7 +14,7 @@ export const getHorizontalBracingList = async (data) => {
   for (let i = 0; i < result.length; i++) {
     let list = [];
     for (let j = 0; j < detailResult.length; j++) {
-      if (result[i].ID == detailResult[j].Bracing_id) {
+      if (result[i].id == detailResult[j].Bracing_id) {
         list.push(detailResult[j])
       }
     }
@@ -38,10 +38,10 @@ export const addHorizontalBracingList = async (data) => {
       .into(HorizontalBracing)
       .values([data])
       .execute();
-    const new_id = result.identifiers[0].ID;
+    const new_id = result.identifiers[0].id;
     const detail = data.detail
     detail.forEach((element) => {
-      element["Bracing_id"] = new_id;
+      element[bracing_id] = new_id;
     });
     const detailResult = await AppDataSource.createQueryBuilder()
       .insert()
@@ -55,16 +55,16 @@ export const addHorizontalBracingList = async (data) => {
 };
 
 export const delHorizontalBracingList = async (data) => {
-  const ID = data.ID;
+  const id = data.id;
   const result = await AppDataSource.createQueryBuilder()
     .delete()
     .from(HorizontalBracing)
-    .where(`"ID" = :ID`, { ID: ID })
+    .where(`id = :id`, { id: id })
     .execute()
   const result2 = await AppDataSource.createQueryBuilder()
     .delete()
     .from(HorizontalBracingMaterial)
-    .where(`"Bracing_id" = :ID`, { ID: ID })
+    .where(`bracing_id = :id`, { id: id })
     .execute();
   return { result, result2 };
 };

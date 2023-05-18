@@ -7,14 +7,14 @@ import {
 @Entity()
 export class Account {
   @PrimaryGeneratedColumn("increment")
-  public ID: number;
+  public id: number;
 
   @Column("varchar", { length: 50 })
-  public User_Name: string;
+  public user_name: string;
 
   @Column("varchar", { length: 100 })
-  public Password: string;
+  public password: string;
 
   @Column("varchar", { length: 100 })
-  public Note: string;
+  public note: string;
 }

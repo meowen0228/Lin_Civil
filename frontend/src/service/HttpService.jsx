@@ -39,7 +39,7 @@ const hideLoading = () => {
 export const Axios = async (method, url, param, config) => {
   await showLoading()
   if (url !== '/login') {
-    param.User_Name = sessionStorage.getItem('User_Name')
+    param.user_name = sessionStorage.getItem('user_name')
     param.token = sessionStorage.getItem('token')
   }
   let result
