@@ -2,7 +2,7 @@ import { AppDataSource } from '../config/dataSource';
 import { Earthwork, EarthworkExcavator } from '../entity';
 
 export const getEarthWorkList = async (data) => {
-  const area = data.area;
+  const Area = data.Area;
   const result = await AppDataSource.getRepository(Earthwork)
     .createQueryBuilder()
     .select()
@@ -14,15 +14,15 @@ export const getEarthWorkList = async (data) => {
   for (let i = 0; i < result.length; i++) {
     let list = [];
     for (let j = 0; j < detailResult.length; j++) {
-      if (result[i].id == detailResult[j].earth_id) {
+      if (result[i].id == detailResult[j].Earth_id) {
         list.push(detailResult[j]);
       }
     }
     result[i]['detail'] = list;
   }
-  if (area && area != 'All') {
+  if (Area && Area != 'All') {
     const resultFilter = result.filter((e) => (
-      e.area.includes(area)
+      e.Area.includes(Area)
     ));
     return resultFilter;
   }
@@ -40,7 +40,7 @@ export const addEarthWorkList = async (data) => {
       const new_id = result.identifiers[0].id;
       const detail = data.detail;
       detail.forEach((element) => {
-        element['earth_id'] = new_id;
+        element['Earth_id'] = new_id;
       });
       const detailResult = await AppDataSource.createQueryBuilder()
         .insert()
