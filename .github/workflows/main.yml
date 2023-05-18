@@ -19,7 +19,7 @@ jobs:
           npm install
           npm run build
           mkdir ../backend/public/
-          cp -r -f build/* ../backend/public/
+          cp -r -f dist/* ../backend/public/
 
       # Build the backend
       - name: Build Backend
