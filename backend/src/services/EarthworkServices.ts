@@ -14,7 +14,7 @@ export const getEarthWorkList = async (data) => {
   for (let i = 0; i < result.length; i++) {
     let list = [];
     for (let j = 0; j < detailResult.length; j++) {
-      if (result[i].id == detailResult[j].earth_id) {
+      if (result[i].id == detailResult[j].earthId) {
         list.push(detailResult[j]);
       }
     }
@@ -40,7 +40,7 @@ export const addEarthWorkList = async (data) => {
       const new_id = result.identifiers[0].id;
       const detail = data.detail;
       detail.forEach((element) => {
-        element['earth_id'] = new_id;
+        element.earthId = new_id;
       });
       const detailResult = await AppDataSource.createQueryBuilder()
         .insert()
