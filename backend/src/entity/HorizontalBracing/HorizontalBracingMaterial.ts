@@ -10,7 +10,7 @@ export class HorizontalBracingMaterial {
   public id: number;
 
   @Column("int")
-  public bracing_id: number;
+  public bracingId: number;
 
   @Column("varchar", { length: 20 })
   public type: string;

@@ -10,7 +10,7 @@ export class SteelAndFormDetail {
   public id: number;
 
   @Column("int")
-  public steelAndForm_id: number;
+  public steelAndFormId: number;
 
   @Column("varchar", { length: 20 })
   public type: string;

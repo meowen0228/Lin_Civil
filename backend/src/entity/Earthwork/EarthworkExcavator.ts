@@ -10,7 +10,7 @@ export class EarthworkExcavator {
   public id: number;
 
   @Column("int")
-  public earth_id: number;
+  public earthId: number;
 
   @Column("varchar", { length: 20 })
   public type: string;

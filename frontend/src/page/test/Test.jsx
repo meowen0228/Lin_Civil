@@ -9,7 +9,7 @@ function Order() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const fetchOrderData = async () => {
     const param = {
-      user_name: sessionStorage.getItem('user_name'),
+      userName: sessionStorage.getItem('userName'),
       token: sessionStorage.getItem('token'),
       id: sessionStorage.getItem('id'),
     };
@@ -33,7 +33,7 @@ function Order() {
   };
   const delData = async (id) => {
     const param = {
-      user_name: sessionStorage.getItem('user_name'),
+      userName: sessionStorage.getItem('userName'),
       token: sessionStorage.getItem('token'),
       orderId: id,
     };

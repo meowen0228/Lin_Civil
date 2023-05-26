@@ -41,7 +41,7 @@ export const addHorizontalBracingList = async (data) => {
     const new_id = result.identifiers[0].id;
     const detail = data.detail
     detail.forEach((element) => {
-      element[bracing_id] = new_id;
+      element[bracingId] = new_id;
     });
     const detailResult = await AppDataSource.createQueryBuilder()
       .insert()
@@ -64,7 +64,7 @@ export const delHorizontalBracingList = async (data) => {
   const result2 = await AppDataSource.createQueryBuilder()
     .delete()
     .from(HorizontalBracingMaterial)
-    .where(`bracing_id = :id`, { id: id })
+    .where(`bracingId = :id`, { id: id })
     .execute();
   return { result, result2 };
 };

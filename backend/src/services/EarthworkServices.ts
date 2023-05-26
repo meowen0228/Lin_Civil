@@ -64,7 +64,7 @@ export const delEarthWorkList = async (data) => {
   const result2 = await AppDataSource.createQueryBuilder()
     .delete()
     .from(EarthworkExcavator)
-    .where(`earth_id = :id`, { id: id })
+    .where(`earthId = :id`, { id: id })
     .execute();
   return { result, result2 };
 };

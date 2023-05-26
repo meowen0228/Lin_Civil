@@ -41,7 +41,7 @@ export const addSteelAndFormList = async (data) => {
     const new_id = result.identifiers[0].id;
     const detail = data.detail
     detail.forEach((element) => {
-      element[steelAndForm_id] = new_id;
+      element[steelAndFormId] = new_id;
     });
     const detailResult = await AppDataSource.createQueryBuilder()
       .insert()
@@ -64,7 +64,7 @@ export const delSteelAndFormList = async (data) => {
   const result2 = await AppDataSource.createQueryBuilder()
     .delete()
     .from(SteelAndFormDetail)
-    .where(`steelAndForm_id = :id`, { id: id })
+    .where(`steelAndFormId = :id`, { id: id })
     .execute();
   return { result, result2 };
 };
