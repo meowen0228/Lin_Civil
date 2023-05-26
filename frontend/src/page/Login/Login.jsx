@@ -34,7 +34,7 @@ function Login() {
           <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="User Name" />
         </Form.Item>
         <Form.Item
-          name="password"
+          name="p_assword"
           rules={[{ required: true, message: 'Please input your Password!' }]}
         >
           <Input
