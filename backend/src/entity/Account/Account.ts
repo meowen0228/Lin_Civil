@@ -10,7 +10,7 @@ export class Account {
   public id: number;
 
   @Column("varchar", { length: 50 })
-  public user_name: string;
+  public userName: string;
 
   @Column("varchar", { length: 100 })
   public password: string;

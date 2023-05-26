@@ -10,7 +10,7 @@ function Login() {
   const onFinish = async (values) => {
     const result = await API.Login(values);
     if (result.code) {
-      sessionStorage.setItem('user_name', values.user_name);
+      sessionStorage.setItem('userName', values.userName);
       sessionStorage.setItem('token', result.data.token);
       navigate('/home/cable_hole');
     }
@@ -28,7 +28,7 @@ function Login() {
         onFinish={onFinish}
       >
         <Form.Item
-          name="user_name"
+          name="userName"
           rules={[{ required: true, message: 'Please input your Username!' }]}
         >
           <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="User Name" />

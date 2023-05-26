@@ -17,10 +17,10 @@ const CreateToken = async (data: ILogin) => {
     );
     client.on('error', (err) => console.log('Redis Client Error', err));
     await client.connect();
-    await client.set(data.user_name, token);
+    await client.set(data.userName, token);
 
     // set key timeout
-    // await client.expire(data.user_name, 600);
+    // await client.expire(data.userName, 600);
 
     return token;
   } catch (err) {

@@ -8,9 +8,9 @@ export const login = async (data: ILogin) => {
     console.log(data);
     const AccountResult = await AppDataSource
       .createQueryBuilder()
-      .select(['Account.user_name', 'Account.password'])
+      .select(['Account.userName', 'Account.password'])
       .from(Account, 'Account')
-      .where('Account.user_name = :user_name', { user_name: data.user_name })
+      .where('Account.userName = :userName', { userName: data.userName })
       .andWhere('Account.password = :password', { password: data.password })
       .getOne();
 

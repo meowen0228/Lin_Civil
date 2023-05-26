@@ -13,7 +13,7 @@ export class Earthwork {
   public type: string;
 
   @Column("date")
-  public work_date: Date;
+  public workDate: Date;
 
   @Column("varchar", { length: 20, array: true })
   public area: string[];
