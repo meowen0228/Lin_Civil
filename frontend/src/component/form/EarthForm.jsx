@@ -53,7 +53,7 @@ function EarthForm(props) {
           </Form.Item>
           <Form.Item
             label="工作日期"
-            name="work_date"
+            name="workDate"
             rules={[{ required: true, message: '請選擇日期!' }]}
           >
             <DatePicker placeholder="選擇日期" />

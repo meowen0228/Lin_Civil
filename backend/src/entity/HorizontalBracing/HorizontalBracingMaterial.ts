@@ -1,6 +1,7 @@
 import {
   Entity,
   Column,
+  PrimaryColumn,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -9,7 +10,7 @@ export class HorizontalBracingMaterial {
   @PrimaryGeneratedColumn("increment")
   public id: number;
 
-  @Column("int")
+  @PrimaryColumn("int")
   public bracingId: number;
 
   @Column("varchar", { length: 20 })

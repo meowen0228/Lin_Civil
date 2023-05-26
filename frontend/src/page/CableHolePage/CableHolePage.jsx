@@ -80,11 +80,11 @@ function CableHolePage() {
   const columns = [
     {
       title: '日期',
-      dataIndex: 'work_date',
+      dataIndex: 'workDate',
       key: 'id',
       align: 'center',
       defaultSortOrder: 'descend',
-      sorter: (a, b) => new Date(a.work_date) - new Date(b.work_date),
+      sorter: (a, b) => new Date(a.workDate) - new Date(b.workDate),
       width: 100,
     },
     {
@@ -152,7 +152,7 @@ function CableHolePage() {
     },
     {
       title: '名稱',
-      dataIndex: 'Name',
+      dataIndex: 'name',
       key: 'id',
       align: 'center',
     },
@@ -238,7 +238,7 @@ function CableHolePage() {
             <div>
               <p>
                 日期：
-                {data[detailIndex].work_date}
+                {data[detailIndex].workDate}
               </p>
               <p>
                 類型：

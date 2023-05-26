@@ -15,6 +15,6 @@ export class Account {
   @Column("varchar", { length: 100 })
   public password: string;
 
-  @Column("varchar", { length: 100 })
+  @Column("varchar", { length: 100, nullable: true })
   public note: string;
 }

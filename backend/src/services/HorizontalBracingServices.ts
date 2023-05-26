@@ -2,7 +2,7 @@ import { AppDataSource } from '../config/dataSource';
 import { HorizontalBracing, HorizontalBracingMaterial } from '../entity';
 
 export const getHorizontalBracingList = async (data) => {
-  const area = data.area;
+  const Area = data.Area;
   const result = await AppDataSource.getRepository(HorizontalBracing)
     .createQueryBuilder()
     .select()
@@ -20,9 +20,9 @@ export const getHorizontalBracingList = async (data) => {
     }
     result[i]["detail"] = list;
   }
-  if (area && area != 'All') {
+  if (Area && Area != 'All') {
     const resultFilter = result.filter((e) => {
-      if (e.area.indexOf(area) > 0) {
+      if (e.area.indexOf(Area) > 0) {
         return e
       }
     });

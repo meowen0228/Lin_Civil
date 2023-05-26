@@ -41,16 +41,13 @@ const initServer = async () => {
       'http://localhost:5173',
       'http://localhost:5174',
       'http://localhost:3030',
-      'http://52.194.76.222:8080',
       'https://lin-civil.fly.dev',
-      'https://lin-civil.tk'
     ];
     app.use(cors({
       origin: (origin, callback) => {
         if (!origin || whitelist.indexOf(origin) !== -1) {
           callback(null, true);
         } else {
-          console.log(origin);
           callback(new Error('Not allowed by CORS'));
         }
       },

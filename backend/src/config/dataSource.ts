@@ -23,6 +23,7 @@ class CustomNamingStrategy extends DefaultNamingStrategy {
     return customName ? customName : customNamingStrategy(propertyName);
   }
 }
+
 dotenv.config();
 
 export const AppDataSource = new DataSource({
@@ -30,12 +31,12 @@ export const AppDataSource = new DataSource({
   host: process.env.DB_HOST,
   port: Number(process.env.DB_PORT),
   username: process.env.DB_USER,
-  password: `${process.env.DB_PASS}`,
+  password: process.env.DB_PASS,
   database: process.env.DB_DATABASE,
   schema: process.env.DB_SCHEMA,
   synchronize: false,
-  logging: true,
   namingStrategy: new CustomNamingStrategy(),
+  logging: true,
   entities: ['src/entity/**/*.{js,ts}'],
   migrations: ['src/migration/*.{js,ts}'],
   subscribers: [],

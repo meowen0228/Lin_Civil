@@ -44,8 +44,8 @@ function Order() {
   };
   const columns = [
     {
-      title: 'work_date',
-      dataIndex: 'work_date',
+      title: workDate,
+      dataIndex: workDate,
       key: 'id',
       align: 'center',
     },
