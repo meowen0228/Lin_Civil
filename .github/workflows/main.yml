@@ -18,7 +18,6 @@ jobs:
           cd frontend
           npm install
           npm run build
-          mkdir ../backend/public/
           rm -rf ../backend/public
           mkdir ../backend/public
           cp -r -f dist/* ../backend/public/
