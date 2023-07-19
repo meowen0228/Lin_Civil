@@ -42,7 +42,7 @@ const initServer = async () => {
       'http://localhost:5174',
       'http://localhost:3030',
       'https://lin-civil.fly.dev',
-      'https://lin-civil.tk/',
+      'https://lin-civil.tk',
     ];
     app.use(cors({
       origin: (origin, callback) => {
