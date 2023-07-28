@@ -2,7 +2,7 @@ import { AppDataSource } from '../config/dataSource';
 import { Earthwork, EarthworkExcavator } from '../entity';
 
 export const getEarthWorkList = async (data) => {
-  const Area = data.Area;
+  const Area = data.area;
   const result = await AppDataSource.getRepository(Earthwork)
     .createQueryBuilder()
     .select()
