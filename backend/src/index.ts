@@ -73,7 +73,7 @@ const initServer = async () => {
     // token 驗證 排除的
     const unless = (routePath: string[], middleware) => {
       return (req: Request, res: Response, next: NextFunction) => {
-        if (routePath.includes(req.path) || !routePath.includes('api/v1')) {
+        if (routePath.includes(req.path)) {
           console.log(req.path);
           return next();
         } else {
@@ -87,11 +87,6 @@ const initServer = async () => {
     // register routes
     AppRoutes.forEach((route) => {
       app[route.method](route.path, ...route.middlewares);
-    });
-
-    // 設置通配符路由
-    app.get('*', (req, res) => {
-      res.sendFile(path.join(__dirname, 'public', 'index.html'));
     });
 
     app.listen(PORT, () => {
