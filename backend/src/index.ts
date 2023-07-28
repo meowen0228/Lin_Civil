@@ -13,6 +13,7 @@ import CheckToken from './middleware/CheckToken';
 import CreateSaltPassword from './middleware/CreateSaltPassword';
 import logger from './utils/logger/logger';
 
+const path = require('path');
 const PORT = process.env.PORT || '8080';
 
 const initServer = async () => {
@@ -86,6 +87,11 @@ const initServer = async () => {
     // register routes
     AppRoutes.forEach((route) => {
       app[route.method](route.path, ...route.middlewares);
+    });
+
+    // 設置通配符路由
+    app.get('*', (req, res) => {
+      res.sendFile(path.join(__dirname, 'public', 'index.html'));
     });
 
     app.listen(PORT, () => {
