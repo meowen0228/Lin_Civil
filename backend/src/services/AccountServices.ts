@@ -1,5 +1,5 @@
 import { AppDataSource } from '../config/dataSource';
-import { Account } from '../entity/Account/Account'
+import { Account } from '../entity/Account/Account';
 import { ILogin } from '../type';
 import CreateToken from '../middleware/CreateToken';
 
