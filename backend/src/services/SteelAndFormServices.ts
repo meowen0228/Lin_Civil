@@ -2,7 +2,7 @@ import { AppDataSource } from '../config/dataSource';
 import { SteelAndForm, SteelAndFormDetail } from '../entity';
 
 export const getSteelAndFormList = async (data) => {
-  const Area = data.Area;
+  const Area = data.area;
   const result = await AppDataSource.getRepository(SteelAndForm)
     .createQueryBuilder()
     .select()

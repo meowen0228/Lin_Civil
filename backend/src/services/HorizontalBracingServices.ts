@@ -2,7 +2,7 @@ import { AppDataSource } from '../config/dataSource';
 import { HorizontalBracing, HorizontalBracingMaterial } from '../entity';
 
 export const getHorizontalBracingList = async (data) => {
-  const Area = data.Area;
+  const Area = data.area;
   const result = await AppDataSource.getRepository(HorizontalBracing)
     .createQueryBuilder()
     .select()
