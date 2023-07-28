@@ -72,7 +72,7 @@ const initServer = async () => {
     // token 驗證 排除的
     const unless = (routePath: string[], middleware) => {
       return (req: Request, res: Response, next: NextFunction) => {
-        if (routePath.includes(req.path)) {
+        if (routePath.includes(req.path) || !routePath.includes('api/v1')) {
           console.log(req.path);
           return next();
         } else {
